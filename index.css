@@ -1,17 +1,124 @@
-body { font-family:'Tahoma',sans-serif; background:#f0f0f0; text-align:center; padding:10px; }
-h1 { font-size:18px; color:#2c3e50; margin-bottom:5px; }
-input, select { padding:5px; margin:5px; }
-button { padding:8px 18px; margin:8px; font-size:14px; border-radius:8px; border:none; background:#3498db; color:white; cursor:pointer; }
-button:hover { background:#217dbb; }
-table { margin:auto; border-collapse:collapse; width:90%; max-width:500px; margin-top:10px;}
-th, td { border:1px solid #ccc; padding:5px; text-align:center; }
-th { background:#3498db; color:white; }
-.hidden { display:none; }
-.topButtons { width:100%; display:flex; justify-content:space-between; margin-bottom:10px; }
-.backButton { padding:5px 10px; font-size:12px; border-radius:6px; background:#e74c3c; color:white; border:none; cursor:pointer; }
-.backButton:hover { background:#c0392b; }
-.clearButton { padding:5px 10px; font-size:12px; border-radius:6px; background:#f39c12; color:white; border:none; cursor:pointer; }
-.clearButton:hover { background:#d35400; }
-.coordRow { display:flex; justify-content:space-around; margin-bottom:10px; }
-.coordRow div { display:flex; flex-direction:column; align-items:flex-start; }
-.mainButtons button { margin:5px; }
+/* index.css */
+
+body {
+  font-family: 'Tahoma', sans-serif;
+  background: #f7f7f7;
+  margin: 0;
+  padding: 0;
+  direction: rtl;
+}
+
+h1, h2 {
+  text-align: center;
+  color: #2c3e50;
+}
+
+button {
+  padding: 10px 15px;
+  margin: 5px;
+  border: none;
+  border-radius: 8px;
+  background-color: #3498db;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #2980b9;
+}
+
+.hidden {
+  display: none;
+}
+
+.program {
+  padding: 10px;
+}
+
+.pointRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.pointRow label {
+  width: 100%;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.pointRow input[type="text"],
+.pointRow input[type="number"],
+.pointRow select {
+  margin: 3px;
+  padding: 6px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  flex: 1 1 45%;
+}
+
+.pointRow button {
+  flex: 1 1 100%;
+  margin-top: 5px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+table, th, td {
+  border: 1px solid #ccc;
+}
+
+th, td {
+  padding: 6px;
+  text-align: center;
+}
+
+.topButtons {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.topButtons button {
+  flex: 1;
+  margin: 3px;
+}
+
+/* استايل للقائمة المنسدلة */
+select {
+  max-height: 120px;
+  overflow-y: auto;
+}
+
+/* مظهر الواجهة الرئيسية */
+#mainInterface {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 15px;
+}
+
+#mainInterface button {
+  width: 90%;
+  margin: 7px 0;
+  font-size: 16px;
+}
+
+/* مستطيلات البحث أصغر قليلاً */
+input[type="text"], input[type="number"] {
+  font-size: 14px;
+}
+
+/* تصميم متجاوب للهواتف */
+@media (max-width: 600px) {
+  .pointRow input, .pointRow select, .pointRow button {
+    flex: 1 1 100%;
+  }
+}

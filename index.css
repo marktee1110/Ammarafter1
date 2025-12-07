@@ -1,153 +1,62 @@
-/* عام */
 body {
-    font-family: 'Tahoma', sans-serif;
+    font-family: Tahoma, sans-serif;
     background: #f0f0f0;
     margin: 0;
     padding: 10px;
     direction: rtl;
 }
 
-h1, h2 {
-    text-align: center;
-    color: #2c3e50;
-}
-
-.hidden {
-    display: none;
-}
-
-/* الواجهة الرئيسية */
-#mainInterface {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-#mainInterface button {
-    padding: 12px;
+button {
+    padding: 10px;
+    margin: 5px;
+    width: 95%;
     font-size: 16px;
     border-radius: 8px;
     border: none;
-    background-color: #4a90e2;
+    background-color: #4CAF50;
     color: white;
-    cursor: pointer;
-    transition: 0.2s;
 }
 
-#mainInterface button:hover {
-    background-color: #357abd;
-}
-
-/* البرامج */
-.programContainer {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-/* ترتيب المستطيلات جنب بعض */
-.coordsContainer {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
-.coordsContainer input, .coordsContainer select {
+input[type=text], input[type=number] {
     padding: 8px;
-    width: 120px;
-    border-radius: 6px;
+    margin: 3px;
+    width: 48%;
+    border-radius: 5px;
     border: 1px solid #ccc;
-    font-size: 14px;
 }
 
-/* أزرار حفظ وإضافة */
-.coordsContainer button {
-    padding: 8px 12px;
-    font-size: 14px;
-    border-radius: 6px;
-    border: none;
-    background-color: #27ae60;
-    color: white;
+.program {
+    margin-top: 15px;
+}
+
+.searchDropdown {
+    border: 1px solid #ccc;
+    max-height: 150px;
+    overflow-y: auto;
+    background: white;
+    position: absolute;
+    z-index: 1000;
+    width: 90%;
+}
+
+.searchItem {
+    padding: 5px;
     cursor: pointer;
-    transition: 0.2s;
 }
 
-.coordsContainer button:hover {
-    background-color: #1e8449;
+.searchItem:hover {
+    background-color: #ddd;
 }
 
-/* الجداول */
-table {
+#resultsTable {
     width: 100%;
     border-collapse: collapse;
     margin-top: 10px;
 }
 
-table, th, td {
-    border: 1px solid #ccc;
-}
-
-th, td {
-    padding: 6px;
+#resultsTable th, #resultsTable td {
+    border: 1px solid #999;
+    padding: 5px;
     text-align: center;
     font-size: 14px;
-}
-
-th {
-    background-color: #3498db;
-    color: white;
-}
-
-/* قائمة البيانات المدخلة سابقاً */
-#historyList {
-    list-style: none;
-    padding: 0;
-    max-height: 200px;
-    overflow-y: auto;
-    margin-bottom: 10px;
-}
-
-#historyList li {
-    padding: 6px 10px;
-    background: #e1e1e1;
-    margin-bottom: 4px;
-    border-radius: 6px;
-    cursor: pointer;
-}
-
-#historyList li:hover {
-    background: #c1c1c1;
-}
-
-/* أزرار العودة */
-button.backButton {
-    background-color: #e74c3c;
-    padding: 10px 14px;
-}
-
-button.backButton:hover {
-    background-color: #c0392b;
-}
-
-/* موبايل Responsive */
-@media screen and (max-width: 480px) {
-    .coordsContainer input, .coordsContainer select {
-        width: 100px;
-        font-size: 12px;
-    }
-    
-    .coordsContainer button {
-        font-size: 12px;
-        padding: 6px 10px;
-    }
-
-    table, th, td {
-        font-size: 12px;
-    }
-
-    #mainInterface button {
-        font-size: 14px;
-        padding: 10px;
-    }
 }

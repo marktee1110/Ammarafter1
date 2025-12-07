@@ -3,120 +3,25 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>تطبيق الحسابات المساحية - المهندس عمار يوسف</title>
+<title>تطبيق المسح الهندسي</title>
 <link rel="stylesheet" href="index.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 </head>
 <body>
-
-<div id="mainInterface">
-    <h1>تطبيق الحسابات المساحية</h1>
-    <button onclick="showProgram('p1')">برنامج حساب مسافة وزاوية</button>
-    <button onclick="showProgram('p2')">برنامج حساب احداثية</button>
-    <button onclick="showProgram('p3')">برنامج التحقيق</button>
-    <button onclick="showProgram('dataHistory')">البيانات المدخلة سابقاً</button>
+<div id="mainMenu">
+  <h2>تطبيق المسح الهندسي</h2>
+  <button onclick="openProgram('distance')">حساب مسافة وزاوية</button>
+  <button onclick="openProgram('coordinates')">حساب إحداثيات</button>
+  <button onclick="openProgram('investigation')">التحقيق</button>
+  <button onclick="openProgram('previous')">البيانات المدخلة سابقاً</button>
 </div>
 
-<!-- Station Selection -->
-<div id="stationSelect" class="hidden">
-    <h2>اختر نقطة الوقوف</h2>
-    <button onclick="selectStation(1)">الوقوف 1</button>
-    <button onclick="selectStation(2)">الوقوف 2</button>
-    <button onclick="selectStation(3)">الوقوف 3</button>
-    <button onclick="backToMain()">عودة</button>
-</div>
-
-<!-- Program 1 -->
-<div id="p1" class="hidden programContainer">
-    <h2>برنامج حساب مسافة وزاوية</h2>
-    <div class="coordsContainer">
-        <input type="number" id="p1_px" placeholder="X الوقوف">
-        <input type="number" id="p1_py" placeholder="Y الوقوف">
-    </div>
-    <div class="coordsContainer">
-        <input type="number" id="p1_zx" placeholder="X الزيرو">
-        <input type="number" id="p1_zy" placeholder="Y الزيرو">
-    </div>
-    <div class="coordsContainer">
-        <input type="number" id="p1_inputX" placeholder="X">
-        <input type="number" id="p1_inputY" placeholder="Y">
-        <button onclick="p1_addPoint()">حفظ نقطة</button>
-    </div>
-    <table id="p1_resultTable">
-        <thead>
-            <tr><th>#</th><th>X</th><th>Y</th><th>المسافة</th><th>الزاوية</th></tr>
-        </thead>
-        <tbody></tbody>
-    </table>
-    <button onclick="exportExcel('p1')">تصدير Excel</button>
-    <button onclick="backToMain()">عودة</button>
-</div>
-
-<!-- Program 2 -->
-<div id="p2" class="hidden programContainer">
-    <h2>برنامج حساب احداثية</h2>
-    <div class="coordsContainer">
-        <input type="number" id="p2_px" placeholder="X الوقوف">
-        <input type="number" id="p2_py" placeholder="Y الوقوف">
-    </div>
-    <div class="coordsContainer">
-        <input type="number" id="p2_zx" placeholder="X الزيرو">
-        <input type="number" id="p2_zy" placeholder="Y الزيرو">
-    </div>
-    <div class="coordsContainer">
-        <input type="number" id="p2_inputAngle" placeholder="زاوية">
-        <input type="number" id="p2_inputDist" placeholder="المسافة">
-        <button onclick="p2_addPoint()">حفظ نقطة</button>
-    </div>
-    <table id="p2_resultTable">
-        <thead>
-            <tr><th>#</th><th>X</th><th>Y</th><th>المسافة</th><th>الزاوية</th></tr>
-        </thead>
-        <tbody></tbody>
-    </table>
-    <button onclick="exportExcel('p2')">تصدير Excel</button>
-    <button onclick="backToMain()">عودة</button>
-</div>
-
-<!-- Program 3: Verification -->
-<div id="p3" class="hidden programContainer">
-    <h2>برنامج التحقيق</h2>
-    <div class="coordsContainer">
-        <input type="number" id="p3_px" placeholder="X الوقوف">
-        <input type="number" id="p3_py" placeholder="Y الوقوف">
-    </div>
-    <div class="coordsContainer">
-        <input type="text" id="p3_newName" placeholder="اسم النقطة">
-        <input type="number" id="p3_newX" placeholder="X">
-        <input type="number" id="p3_newY" placeholder="Y">
-        <button onclick="p3_addNewPoint()">حفظ نقطة جديدة</button>
-    </div>
-    <div class="coordsContainer">
-        <select id="p3_selectPoints" multiple></select>
-        <button onclick="p3_addPoint()">إضافة إلى الحسابات</button>
-    </div>
-    <table id="p3_resultTable">
-        <thead>
-            <tr><th>اسم النقطة</th><th>X</th><th>Y</th><th>المسافة</th><th>الزاوية</th></tr>
-        </thead>
-        <tbody></tbody>
-    </table>
-    <button onclick="exportExcel('p3')">تصدير Excel</button>
-    <button onclick="backToMain()">عودة</button>
-</div>
-
-<!-- Data History -->
-<div id="dataHistory" class="hidden programContainer">
-    <h2>البيانات المدخلة سابقاً</h2>
-    <input type="text" id="searchHistory" placeholder="بحث وفلترة">
-    <ul id="historyList"></ul>
-    <table id="historyTable">
-        <thead>
-            <tr><th>اسم النقطة</th><th>X</th><th>Y</th><th>إلغاء</th></tr>
-        </thead>
-        <tbody></tbody>
-    </table>
-    <button onclick="backToMain()">عودة</button>
+<div id="programContainer" style="display:none">
+  <button onclick="backToMenu()">العودة إلى القائمة الرئيسية</button>
+  <div id="distanceProgram" class="program" style="display:none"></div>
+  <div id="coordinatesProgram" class="program" style="display:none"></div>
+  <div id="investigationProgram" class="program" style="display:none"></div>
+  <div id="previousProgram" class="program" style="display:none"></div>
 </div>
 
 <script src="app.js"></script>

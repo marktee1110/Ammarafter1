@@ -1,124 +1,153 @@
-/* index.css */
-
+/* عام */
 body {
-  font-family: 'Tahoma', sans-serif;
-  background: #f7f7f7;
-  margin: 0;
-  padding: 0;
-  direction: rtl;
+    font-family: 'Tahoma', sans-serif;
+    background: #f0f0f0;
+    margin: 0;
+    padding: 10px;
+    direction: rtl;
 }
 
 h1, h2 {
-  text-align: center;
-  color: #2c3e50;
-}
-
-button {
-  padding: 10px 15px;
-  margin: 5px;
-  border: none;
-  border-radius: 8px;
-  background-color: #3498db;
-  color: white;
-  font-size: 14px;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #2980b9;
+    text-align: center;
+    color: #2c3e50;
 }
 
 .hidden {
-  display: none;
+    display: none;
 }
 
-.program {
-  padding: 10px;
-}
-
-.pointRow {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.pointRow label {
-  width: 100%;
-  margin-bottom: 5px;
-  font-weight: bold;
-}
-
-.pointRow input[type="text"],
-.pointRow input[type="number"],
-.pointRow select {
-  margin: 3px;
-  padding: 6px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  flex: 1 1 45%;
-}
-
-.pointRow button {
-  flex: 1 1 100%;
-  margin-top: 5px;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 10px;
-  font-size: 14px;
-}
-
-table, th, td {
-  border: 1px solid #ccc;
-}
-
-th, td {
-  padding: 6px;
-  text-align: center;
-}
-
-.topButtons {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
-}
-
-.topButtons button {
-  flex: 1;
-  margin: 3px;
-}
-
-/* استايل للقائمة المنسدلة */
-select {
-  max-height: 120px;
-  overflow-y: auto;
-}
-
-/* مظهر الواجهة الرئيسية */
+/* الواجهة الرئيسية */
 #mainInterface {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 #mainInterface button {
-  width: 90%;
-  margin: 7px 0;
-  font-size: 16px;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: none;
+    background-color: #4a90e2;
+    color: white;
+    cursor: pointer;
+    transition: 0.2s;
 }
 
-/* مستطيلات البحث أصغر قليلاً */
-input[type="text"], input[type="number"] {
-  font-size: 14px;
+#mainInterface button:hover {
+    background-color: #357abd;
 }
 
-/* تصميم متجاوب للهواتف */
-@media (max-width: 600px) {
-  .pointRow input, .pointRow select, .pointRow button {
-    flex: 1 1 100%;
-  }
+/* البرامج */
+.programContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* ترتيب المستطيلات جنب بعض */
+.coordsContainer {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.coordsContainer input, .coordsContainer select {
+    padding: 8px;
+    width: 120px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+
+/* أزرار حفظ وإضافة */
+.coordsContainer button {
+    padding: 8px 12px;
+    font-size: 14px;
+    border-radius: 6px;
+    border: none;
+    background-color: #27ae60;
+    color: white;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.coordsContainer button:hover {
+    background-color: #1e8449;
+}
+
+/* الجداول */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+table, th, td {
+    border: 1px solid #ccc;
+}
+
+th, td {
+    padding: 6px;
+    text-align: center;
+    font-size: 14px;
+}
+
+th {
+    background-color: #3498db;
+    color: white;
+}
+
+/* قائمة البيانات المدخلة سابقاً */
+#historyList {
+    list-style: none;
+    padding: 0;
+    max-height: 200px;
+    overflow-y: auto;
+    margin-bottom: 10px;
+}
+
+#historyList li {
+    padding: 6px 10px;
+    background: #e1e1e1;
+    margin-bottom: 4px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+#historyList li:hover {
+    background: #c1c1c1;
+}
+
+/* أزرار العودة */
+button.backButton {
+    background-color: #e74c3c;
+    padding: 10px 14px;
+}
+
+button.backButton:hover {
+    background-color: #c0392b;
+}
+
+/* موبايل Responsive */
+@media screen and (max-width: 480px) {
+    .coordsContainer input, .coordsContainer select {
+        width: 100px;
+        font-size: 12px;
+    }
+    
+    .coordsContainer button {
+        font-size: 12px;
+        padding: 6px 10px;
+    }
+
+    table, th, td {
+        font-size: 12px;
+    }
+
+    #mainInterface button {
+        font-size: 14px;
+        padding: 10px;
+    }
 }

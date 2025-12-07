@@ -3,193 +3,120 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>الحسابات المساحية - المهندس عمار يوسف</title>
+<title>تطبيق الحسابات المساحية - المهندس عمار يوسف</title>
 <link rel="stylesheet" href="index.css">
-<link rel="manifest" href="manifest.json">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-<script>
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('sw.js')
-    .then(() => console.log('Service Worker Registered'));
-}
-</script>
 </head>
 <body>
 
-<!-- الواجهة الرئيسية -->
 <div id="mainInterface">
-  <h1>الحسابات المساحية</h1>
-  <h2>تصميم المهندس عمار يوسف</h2>
-  <button onclick="showProgram('p1')">حساب زاوية ومسافة</button>
-  <button onclick="showProgram('p2')">حساب إحداثيات</button>
-  <button onclick="showProgram('p3')">التحقيق</button>
-  <button onclick="showProgram('p4')">البيانات المدخلة سابقاً</button>
+    <h1>تطبيق الحسابات المساحية</h1>
+    <button onclick="showProgram('p1')">برنامج حساب مسافة وزاوية</button>
+    <button onclick="showProgram('p2')">برنامج حساب احداثية</button>
+    <button onclick="showProgram('p3')">برنامج التحقيق</button>
+    <button onclick="showProgram('dataHistory')">البيانات المدخلة سابقاً</button>
 </div>
 
-<!-- اختيار الوقفة -->
+<!-- Station Selection -->
 <div id="stationSelect" class="hidden">
-  <h1>اختر الوقفة للعمل عليها</h1>
-  <button onclick="selectStation(1)">الوقفة الأولى</button>
-  <button onclick="selectStation(2)">الوقفة الثانية</button>
-  <button onclick="selectStation(3)">الوقفة الثالثة</button>
-  <button onclick="selectStation(4)">الوقفة الرابعة</button>
+    <h2>اختر نقطة الوقوف</h2>
+    <button onclick="selectStation(1)">الوقوف 1</button>
+    <button onclick="selectStation(2)">الوقوف 2</button>
+    <button onclick="selectStation(3)">الوقوف 3</button>
+    <button onclick="backToMain()">عودة</button>
 </div>
 
-<!-- البرنامج 1 -->
-<div id="p1" class="hidden program">
-  <div class="topButtons">
-    <button class="clearButton" onclick="clearStation('p1')">مسح كل البيانات</button>
-    <button class="backButton" onclick="backToMain()">العودة للواجهة الرئيسية</button>
-  </div>
-  <h1>حساب زاوية ومسافة</h1>
-
-  <!-- نقطة الوقوف -->
-  <div class="pointRow">
-    <label>نقطة الوقوف:</label>
-    <input type="text" id="p1_standName" placeholder="ابحث أو اختر نقطة">
-    <select id="p1_standList" class="hidden" size="3"></select>
-    <input type="number" id="p1_px" placeholder="X" step="any">
-    <input type="number" id="p1_py" placeholder="Y" step="any">
-    <button onclick="p1_saveStand()">حفظ نقطة الوقوف</button>
-  </div>
-
-  <!-- نقطة الزيرو -->
-  <div class="pointRow">
-    <label>نقطة الزيرو:</label>
-    <input type="text" id="p1_zeroName" placeholder="ابحث أو اختر نقطة">
-    <select id="p1_zeroList" class="hidden" size="3"></select>
-    <input type="number" id="p1_zx" placeholder="X" step="any">
-    <input type="number" id="p1_zy" placeholder="Y" step="any">
-    <button onclick="p1_saveZero()">حفظ نقطة الزيرو</button>
-  </div>
-
-  <hr>
-
-  <div>
-    <input type="number" id="p1_inputX" placeholder="ادخل X">
-    <input type="number" id="p1_inputY" placeholder="ادخل Y">
-    <button onclick="p1_addPoint()">إضافة النقطة</button>
-  </div>
-
-  <table id="p1_resultTable">
-    <thead>
-      <tr><th>رقم النقطة</th><th>X (م)</th><th>Y (م)</th><th>المسافة (م)</th><th>الزاوية (غراد)</th></tr>
-    </thead>
-    <tbody></tbody>
-  </table>
+<!-- Program 1 -->
+<div id="p1" class="hidden programContainer">
+    <h2>برنامج حساب مسافة وزاوية</h2>
+    <div class="coordsContainer">
+        <input type="number" id="p1_px" placeholder="X الوقوف">
+        <input type="number" id="p1_py" placeholder="Y الوقوف">
+    </div>
+    <div class="coordsContainer">
+        <input type="number" id="p1_zx" placeholder="X الزيرو">
+        <input type="number" id="p1_zy" placeholder="Y الزيرو">
+    </div>
+    <div class="coordsContainer">
+        <input type="number" id="p1_inputX" placeholder="X">
+        <input type="number" id="p1_inputY" placeholder="Y">
+        <button onclick="p1_addPoint()">حفظ نقطة</button>
+    </div>
+    <table id="p1_resultTable">
+        <thead>
+            <tr><th>#</th><th>X</th><th>Y</th><th>المسافة</th><th>الزاوية</th></tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+    <button onclick="exportExcel('p1')">تصدير Excel</button>
+    <button onclick="backToMain()">عودة</button>
 </div>
 
-<!-- البرنامج 2 -->
-<div id="p2" class="hidden program">
-  <div class="topButtons">
-    <button class="clearButton" onclick="clearStation('p2')">مسح كل البيانات</button>
-    <button class="backButton" onclick="backToMain()">العودة للواجهة الرئيسية</button>
-  </div>
-  <h1>حساب الإحداثيات من زاوية ومسافة</h1>
-
-  <!-- نقطة الوقوف -->
-  <div class="pointRow">
-    <label>نقطة الوقوف:</label>
-    <input type="text" id="p2_standName" placeholder="ابحث أو اختر نقطة">
-    <select id="p2_standList" class="hidden" size="3"></select>
-    <input type="number" id="p2_px" placeholder="X" step="any">
-    <input type="number" id="p2_py" placeholder="Y" step="any">
-    <button onclick="p2_saveStand()">حفظ نقطة الوقوف</button>
-  </div>
-
-  <!-- نقطة الزيرو -->
-  <div class="pointRow">
-    <label>نقطة الزيرو:</label>
-    <input type="text" id="p2_zeroName" placeholder="ابحث أو اختر نقطة">
-    <select id="p2_zeroList" class="hidden" size="3"></select>
-    <input type="number" id="p2_zx" placeholder="X" step="any">
-    <input type="number" id="p2_zy" placeholder="Y" step="any">
-    <button onclick="p2_saveZero()">حفظ نقطة الزيرو</button>
-  </div>
-
-  <hr>
-
-  <div>
-    <input type="number" id="p2_inputAngle" placeholder="ادخل الزاوية">
-    <input type="number" id="p2_inputDist" placeholder="ادخل المسافة">
-    <button onclick="p2_addPoint()">إضافة النقطة</button>
-  </div>
-
-  <table id="p2_resultTable">
-    <thead>
-      <tr><th>رقم النقطة</th><th>X (م)</th><th>Y (م)</th><th>المسافة (م)</th><th>الزاوية (غراد)</th></tr>
-    </thead>
-    <tbody></tbody>
-  </table>
+<!-- Program 2 -->
+<div id="p2" class="hidden programContainer">
+    <h2>برنامج حساب احداثية</h2>
+    <div class="coordsContainer">
+        <input type="number" id="p2_px" placeholder="X الوقوف">
+        <input type="number" id="p2_py" placeholder="Y الوقوف">
+    </div>
+    <div class="coordsContainer">
+        <input type="number" id="p2_zx" placeholder="X الزيرو">
+        <input type="number" id="p2_zy" placeholder="Y الزيرو">
+    </div>
+    <div class="coordsContainer">
+        <input type="number" id="p2_inputAngle" placeholder="زاوية">
+        <input type="number" id="p2_inputDist" placeholder="المسافة">
+        <button onclick="p2_addPoint()">حفظ نقطة</button>
+    </div>
+    <table id="p2_resultTable">
+        <thead>
+            <tr><th>#</th><th>X</th><th>Y</th><th>المسافة</th><th>الزاوية</th></tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+    <button onclick="exportExcel('p2')">تصدير Excel</button>
+    <button onclick="backToMain()">عودة</button>
 </div>
 
-<!-- البرنامج 3 - التحقيق -->
-<div id="p3" class="hidden program">
-  <div class="topButtons">
-    <button class="clearButton" onclick="clearStation('p3')">مسح كل البيانات</button>
-    <button class="backButton" onclick="backToMain()">العودة للواجهة الرئيسية</button>
-  </div>
-  <h1>التحقيق</h1>
-
-  <!-- نقطة الوقوف -->
-  <div class="pointRow">
-    <label>نقطة الوقوف:</label>
-    <input type="text" id="p3_standName" placeholder="ابحث أو اختر نقطة">
-    <select id="p3_standList" class="hidden" size="3"></select>
-    <input type="number" id="p3_px" placeholder="X" step="any">
-    <input type="number" id="p3_py" placeholder="Y" step="any">
-    <button onclick="p3_saveStand()">حفظ نقطة الوقوف</button>
-  </div>
-
-  <!-- نقطة الزيرو -->
-  <div class="pointRow">
-    <label>نقطة الزيرو:</label>
-    <input type="text" id="p3_zeroName" placeholder="ابحث أو اختر نقطة">
-    <select id="p3_zeroList" class="hidden" size="3"></select>
-    <input type="number" id="p3_zx" placeholder="X" step="any">
-    <input type="number" id="p3_zy" placeholder="Y" step="any">
-    <button onclick="p3_saveZero()">حفظ نقطة الزيرو</button>
-  </div>
-
-  <hr>
-
-  <!-- نقاط التحقيق -->
-  <div class="pointRow">
-    <label>إضافة نقطة جديدة:</label>
-    <input type="text" id="p3_newName" placeholder="اسم النقطة">
-    <input type="number" id="p3_newX" placeholder="X" step="any">
-    <input type="number" id="p3_newY" placeholder="Y" step="any">
-    <button onclick="p3_addNewPoint()">حفظ النقطة</button>
-  </div>
-
-  <div>
-    <label>نقاط التحقيق المحفوظة:</label>
-    <select id="p3_selectPoints" multiple style="width:200px; height:100px;"></select>
-    <button onclick="p3_addPoint()">إضافة نقطة تحقق</button>
-  </div>
-
-  <table id="p3_resultTable">
-    <thead>
-      <tr><th>اسم النقطة</th><th>X (م)</th><th>Y (م)</th><th>المسافة (م)</th><th>الزاوية (غراد)</th></tr>
-    </thead>
-    <tbody></tbody>
-  </table>
+<!-- Program 3: Verification -->
+<div id="p3" class="hidden programContainer">
+    <h2>برنامج التحقيق</h2>
+    <div class="coordsContainer">
+        <input type="number" id="p3_px" placeholder="X الوقوف">
+        <input type="number" id="p3_py" placeholder="Y الوقوف">
+    </div>
+    <div class="coordsContainer">
+        <input type="text" id="p3_newName" placeholder="اسم النقطة">
+        <input type="number" id="p3_newX" placeholder="X">
+        <input type="number" id="p3_newY" placeholder="Y">
+        <button onclick="p3_addNewPoint()">حفظ نقطة جديدة</button>
+    </div>
+    <div class="coordsContainer">
+        <select id="p3_selectPoints" multiple></select>
+        <button onclick="p3_addPoint()">إضافة إلى الحسابات</button>
+    </div>
+    <table id="p3_resultTable">
+        <thead>
+            <tr><th>اسم النقطة</th><th>X</th><th>Y</th><th>المسافة</th><th>الزاوية</th></tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+    <button onclick="exportExcel('p3')">تصدير Excel</button>
+    <button onclick="backToMain()">عودة</button>
 </div>
 
-<!-- البرنامج 4 - البيانات المدخلة سابقاً -->
-<div id="p4" class="hidden program">
-  <div class="topButtons">
-    <button class="backButton" onclick="backToMain()">العودة للواجهة الرئيسية</button>
-  </div>
-  <h1>البيانات المدخلة سابقاً</h1>
-  <input type="text" id="searchSaved" placeholder="ابحث أو فلتر">
-  <ul id="savedList"></ul>
-  <table id="savedTable">
-    <thead>
-      <tr><th>الاسم</th><th>X</th><th>Y</th><th>إلغاء</th></tr>
-    </thead>
-    <tbody></tbody>
-  </table>
+<!-- Data History -->
+<div id="dataHistory" class="hidden programContainer">
+    <h2>البيانات المدخلة سابقاً</h2>
+    <input type="text" id="searchHistory" placeholder="بحث وفلترة">
+    <ul id="historyList"></ul>
+    <table id="historyTable">
+        <thead>
+            <tr><th>اسم النقطة</th><th>X</th><th>Y</th><th>إلغاء</th></tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+    <button onclick="backToMain()">عودة</button>
 </div>
 
 <script src="app.js"></script>
